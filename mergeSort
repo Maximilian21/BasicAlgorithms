@@ -1,0 +1,95 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void mergeSort(vector<int>& A, int p, int r);
+void merge(vector<int>& A, int p, int q, int r);
+
+void mergeSort(vector<int>& A, int p, int r){
+    if (p < r){
+        int q = (p + r) / 2;
+        mergeSort(A, p, q);
+        mergeSort(A, q + 1, r);
+        merge(A, p , q, r);
+    }
+}
+
+void merge(vector<int>& A, int p, int q, int r){
+/*
+    int n1 = q - p + 1; // length of left side
+    int n2 = r - q; // length of right side
+    
+    
+    
+    vector<int> L;
+    vector<int> R;
+    
+    for (int i = 0; i < n1; i++){
+        L.at(i) = A.at(p + i);
+    }
+    for (int i = 0; i < n2; i++){
+        R.at(i) = A.at(q + i - 1);
+    }
+    
+    L.at(n1) = 99999;
+    R.at(n2) = 99999;
+    
+    int i = 1;
+    int j = 1;
+    for (int k = p; k < r; k++){
+        if (L.at(i) <= R.at(j)){
+            A.at(k) = L.at(i);
+            i++;
+        }
+        else {
+            A.at(k) = R.at(j);
+            j++;            
+        }
+
+    }
+*/
+	vector<int> temp;
+
+	int i, j;
+	i = p;
+	j = q + 1;
+
+	while (i <= q && j <= r) {
+
+		if (A[i] <= A[j]) {
+			temp.push_back(A[i]);
+			++i;
+		}
+		else {
+			temp.push_back(A[j]);
+			++j;
+		}
+
+	}
+
+	while (i <= q) {
+		temp.push_back(A[i]);
+		++i;
+	}
+
+	while (j <= r) {
+		temp.push_back(A[j]);
+		++j;
+	}
+
+	for (int i = p; i <= r; ++i)
+		A[i] = temp[i - p];
+
+
+
+}
+
+int main()
+{
+    vector <int> A = {3, 2, 1, 6, 10, 4, 9, 15, 29, 25, 21};
+    mergeSort(A, 0, A.size() - 1);
+    for (int i : A){
+        cout << i << " ";
+    }
+}
