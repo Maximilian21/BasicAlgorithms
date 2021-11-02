@@ -1,0 +1,30 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void insertionSort(vector<int> &someVector);
+
+void insertionSort(vector<int> &someVector){
+
+    for (int j = 1; j < someVector.size(); j++){
+        int key = someVector.at(j);
+        int i = j - 1;
+        while((i > -1) && (someVector.at(i) > key)){
+            someVector.at(i + 1) = someVector.at(i);
+            i--;
+        }
+        someVector.at(i + 1) = key;
+    }
+}
+
+int main()
+{
+    vector <int> someVector = {3, 2, 1, 6};
+    insertionSort(someVector);
+    for (int i : someVector){
+        cout << i << " ";
+    }
+
+    return 0;
+}
